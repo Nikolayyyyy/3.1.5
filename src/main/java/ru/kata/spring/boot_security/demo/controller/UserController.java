@@ -12,13 +12,15 @@ import java.security.Principal;
 
 @RestController
 @RequestMapping("/api/user")
-public class UserRestController {
+public class UserController {
 
     private final UserService userService;
 
-    public UserRestController(UserService userService) {
+
+    public UserController(UserService userService) {
         this.userService = userService;
     }
+
 
     @GetMapping("/viewUser")
     public ResponseEntity<User> getPageUser(Principal principal) {

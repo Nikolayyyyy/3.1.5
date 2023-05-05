@@ -3,11 +3,11 @@ package ru.kata.spring.boot_security.demo.controller;
 
 
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import ru.kata.spring.boot_security.demo.dto.UserDTO;
+import ru.kata.spring.boot_security.demo.model.Role;
 import ru.kata.spring.boot_security.demo.model.User;
+import ru.kata.spring.boot_security.demo.service.RoleService;
 import ru.kata.spring.boot_security.demo.service.UserService;
 import ru.kata.spring.boot_security.demo.util.Mapper;
 
@@ -20,11 +20,19 @@ public class AdminRestController  {
 
     private final UserService userService;
 
+    private final RoleService roleService;
+
     private final Mapper mapper;
 
-    private AdminRestController(UserService userService, Mapper mapper) {
+    public AdminRestController(UserService userService, RoleService roleService, Mapper mapper) {
         this.userService = userService;
+        this.roleService = roleService;
         this.mapper = mapper;
+    }
+
+    @GetMapping("/roles")
+    public ResponseEntity<List<Role>> getAllRoles() {
+        return ResponseEntity.ok(roleService.getAllRoles());
     }
 
     @GetMapping("/viewUser")
